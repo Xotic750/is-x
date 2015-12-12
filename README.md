@@ -62,7 +62,7 @@ recommended that these are loaded regardless to fix native bugs.
     * [`~isStringTag(value, stringTag)`](#module_is-x..isStringTag) ⇒ <code>boolean</code>
     * [`~isArray(value)`](#module_is-x..isArray) ⇒ <code>boolean</code>
     * [`~isArrayLike(value)`](#module_is-x..isArrayLike) ⇒ <code>boolean</code>
-    * [`~isPrototypeOf(prototypeObj, object)`](#module_is-x..isPrototypeOf) ⇒ <code>boolean</code>
+    * [`~isProtoOf(prototypeObj, object)`](#module_is-x..isProtoOf) ⇒ <code>boolean</code>
     * [`~isFrozen(value)`](#module_is-x..isFrozen) ⇒ <code>boolean</code>
     * [`~isSealed(value)`](#module_is-x..isSealed) ⇒ <code>boolean</code>
     * [`~is(value1, value2)`](#module_is-x..is) ⇒ <code>boolean</code>
@@ -82,6 +82,7 @@ recommended that these are loaded regardless to fix native bugs.
     * [`~isOwnPropertyOf(object, property)`](#module_is-x..isOwnPropertyOf) ⇒ <code>boolean</code>
     * [`~isPropertyOf(object, property)`](#module_is-x..isPropertyOf) ⇒ <code>boolean</code>
     * [`~isArrowFunction(object)`](#module_is-x..isArrowFunction) ⇒ <code>boolean</code>
+    * [`~isError(value)`](#module_is-x..isError) ⇒ <code>boolean</code>
 
 <a name="module_is-x..isElement"></a>
 ### `is-x~isElement` ⇒ <code>boolean</code>
@@ -448,8 +449,8 @@ equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
 | --- | --- | --- |
 | value | <code>\*</code> | The value to check. |
 
-<a name="module_is-x..isPrototypeOf"></a>
-### `is-x~isPrototypeOf(prototypeObj, object)` ⇒ <code>boolean</code>
+<a name="module_is-x..isProtoOf"></a>
+### `is-x~isProtoOf(prototypeObj, object)` ⇒ <code>boolean</code>
 This method allows you to check whether or not an object
 exists within another object's prototype chain.
 
@@ -744,4 +745,16 @@ Determine if an `object` is an `Arrow Function`.
 | Param | Type | Description |
 | --- | --- | --- |
 | object | <code>\*</code> | The object to test. |
+
+<a name="module_is-x..isError"></a>
+### `is-x~isError(value)` ⇒ <code>boolean</code>
+Determine whether or not a given `value` is an `Error` type.
+
+**Kind**: inner method of <code>[is-x](#module_is-x)</code>  
+**Returns**: <code>boolean</code> - Returns `true` if `value` is an `Error` type,
+ else `false`.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>\*</code> | The object to be tested. |
 

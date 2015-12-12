@@ -53,11 +53,9 @@
     isNil = require('is-nil-x'),
     isNative = require('lodash.isnative'),
     deepEqual = require('deep-equal-x'),
-    pIsPrototypeOf = Object.prototype.isPrototypeOf,
-    is = {};
+    pIsPrototypeOf = Object.prototype.isPrototypeOf;
 
-  module.exports = is;
-  defProps(is, {
+  defProps(module.exports, {
     /**
      * Checks if `value` is `null` or `undefined`.
      *
@@ -346,7 +344,7 @@
      * @return {boolean} Returns `true` if `prototypeObj` is in `object`'s
      *  prototype chain, else `false`.
      */
-    isPrototypeOf: function isPrototypeOf(prototypeObj, object) {
+    isProtoOf: function isProtoOf(prototypeObj, object) {
       if (isNil(prototypeObj) || isNil(object)) {
         return false;
       }
@@ -619,6 +617,15 @@
      * @return {boolean} `true` if the `object` is an `Arrow Function`,
      *  else false`.
      */
-    isArrowFunction: require('is-arrow-function')
+    isArrowFunction: require('is-arrow-function'),
+    /**
+     * Determine whether or not a given `value` is an `Error` type.
+     *
+     * @function
+     * @param {*} value The object to be tested.
+     * @return {boolean} Returns `true` if `value` is an `Error` type,
+     *  else `false`.
+     */
+    isError: require('is-error-x')
   });
 }());

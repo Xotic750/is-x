@@ -626,6 +626,22 @@
      * @return {boolean} Returns `true` if `value` is an `Error` type,
      *  else `false`.
      */
-    isError: require('is-error-x')
+    isError: require('is-error-x'),
+    /**
+     * Determine whether or not a given `value` is a `Map`.
+     *
+     * @function
+     * @param {*} value The object to be tested.
+     * @return {boolean} Returns `true` if `value` is a `Map`, else `false`.
+     */
+    isMap: require('is-map-x'),
+    /**
+     * Determine whether or not a given `value` is a `Set`.
+     *
+     * @function
+     * @param {*} value The object to be tested.
+     * @return {boolean} Returns `true` if `value` is a `Set`, else `false`.
+     */
+    isSet: require('is-set-x')
   });
 }());

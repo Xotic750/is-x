@@ -83,6 +83,8 @@ recommended that these are loaded regardless to fix native bugs.
     * [`~isPropertyOf(object, property)`](#module_is-x..isPropertyOf) ⇒ <code>boolean</code>
     * [`~isArrowFunction(object)`](#module_is-x..isArrowFunction) ⇒ <code>boolean</code>
     * [`~isError(value)`](#module_is-x..isError) ⇒ <code>boolean</code>
+    * [`~isMap(value)`](#module_is-x..isMap) ⇒ <code>boolean</code>
+    * [`~isSet(value)`](#module_is-x..isSet) ⇒ <code>boolean</code>
 
 <a name="module_is-x..isElement"></a>
 ### `is-x~isElement` ⇒ <code>boolean</code>
@@ -753,6 +755,28 @@ Determine whether or not a given `value` is an `Error` type.
 **Kind**: inner method of <code>[is-x](#module_is-x)</code>  
 **Returns**: <code>boolean</code> - Returns `true` if `value` is an `Error` type,
  else `false`.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>\*</code> | The object to be tested. |
+
+<a name="module_is-x..isMap"></a>
+### `is-x~isMap(value)` ⇒ <code>boolean</code>
+Determine whether or not a given `value` is a `Map`.
+
+**Kind**: inner method of <code>[is-x](#module_is-x)</code>  
+**Returns**: <code>boolean</code> - Returns `true` if `value` is a `Map`, else `false`.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>\*</code> | The object to be tested. |
+
+<a name="module_is-x..isSet"></a>
+### `is-x~isSet(value)` ⇒ <code>boolean</code>
+Determine whether or not a given `value` is a `Set`.
+
+**Kind**: inner method of <code>[is-x](#module_is-x)</code>  
+**Returns**: <code>boolean</code> - Returns `true` if `value` is a `Set`, else `false`.  
 
 | Param | Type | Description |
 | --- | --- | --- |

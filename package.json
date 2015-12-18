@@ -52,7 +52,7 @@
     "is-length-x": "^1.0.3",
     "lodash.isnative": "^3.0.4",
     "has-own-property-x": "^1.0.0",
-    "deep-equal-x": "^1.2.0",
+    "deep-equal-x": "^1.2.2",
     "lodash.iselement": "^3.0.8",
     "is-buffer": "^1.1.0",
     "validate.io-undefined": "^1.0.3",

@@ -651,7 +651,7 @@ properties. This can lead to some potentially surprising results
 
 **Kind**: inner method of <code>[is-x](#module_is-x)</code>  
 **Returns**: <code>boolean</code> - `true` if `actual` and `expected` are deemed equal,
- otherwise `false`. Circular objects will return `false`;  
+ otherwise `false`. Circular objects will return `false`.  
 **See**: https://nodejs.org/api/assert.html  
 
 | Param | Type | Description |
@@ -666,7 +666,7 @@ comparison operator ( === ).
 
 **Kind**: inner method of <code>[is-x](#module_is-x)</code>  
 **Returns**: <code>boolean</code> - `true` if `actual` and `expected` are deemed equal,
- otherwise `false`. Circular objects will return `false`;  
+ otherwise `false`. Circular objects will return `false`.  
 **See**: https://nodejs.org/api/assert.html  
 
 | Param | Type | Description |

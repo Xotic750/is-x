@@ -67,9 +67,10 @@
     toStringTag = require('to-string-tag-x'),
     isPrimitive = require('is-primitive'),
     isNil = require('is-nil-x'),
-    isNative = require('lodash.isnative'),
+    isNativeLD = require('lodash.isnative'),
     deepEqual = require('deep-equal-x'),
-    pIsPrototypeOf = Object.prototype.isPrototypeOf;
+    pIsPrototypeOf = Object.prototype.isPrototypeOf,
+    reIsUint = /^(?:0|[1-9]\d*)$/;
 
   defProps(module.exports, {
     /**
@@ -218,7 +219,7 @@
      * @param {*} value The value to check.
      * @return {boolean} Returns `true` if `value` is `NaN`, else `false`.
      */
-    isNaN: ES.IsNaN,
+    isNaN: Number.isNaN,
     /**
      * Checks if `value` is a finite primitive number.
      *
@@ -227,7 +228,7 @@
      * @return {boolean} Returns `true` if `value` is a finite number,
      *  else `false`.
      */
-    isFinite: ES.IsFinite,
+    isFinite: Number.isFinite,
     /**
      * Checks if `value` is classified as a `Symbol` primitive or object.
      *
@@ -298,7 +299,7 @@
      * @return {boolean} Returns `true` if `value` is correctly classified,
      *  else `false`.
      */
-    isRegExp: ES.ISRegExp,
+    isRegExp: ES.IsRegExp,
     /**
      * Checks if `value` is not a primitive.
      *
@@ -494,6 +495,21 @@
      */
     isLength: require('is-length-x'),
     /**
+     * Checks if `value` is a valid array-like index.
+     *
+     * @private
+     * @param {*} value The value to check.
+     * @return {boolean} Returns `true` if `value` is a valid index,
+     *  else `false`.
+     */
+    isIndex: function isIndex(value) {
+      var val;
+      if (typeof value === 'number' || reIsUint.test(value)) {
+        val = ES.ToNumber(value);
+      }
+      return ES.IsInteger(val) && val >= 0 && val < MAX_SAFE_INTEGER;
+    },
+    /**
      * Checks if `value` is a native function.
      *
      * @function
@@ -501,7 +517,7 @@
      * @return {boolean} Returns `true` if `value` is a native function,
      *  else `false`.
      */
-    isNative: isNative,
+    isNative: isNativeLD,
     /**
      * Tests for deep equality. Primitive values are compared with the equal
      * comparison operator ( == ). This only considers enumerable properties.
@@ -511,7 +527,7 @@
      * @param {*} value1 First comparison object.
      * @param {*} value2 Second comparison object.
      * @return {boolean} `true` if `actual` and `expected` are deemed equal,
-     *  otherwise `false`. Circular objects will return `false`;
+     *  otherwise `false`. Circular objects will return `false`.
      * @see https://nodejs.org/api/assert.html
      */
     isDeepEqual: function isDeepEqual(value1, value2) {
@@ -527,7 +543,7 @@
      * @param {*} value1 First comparison object.
      * @param {*} value2 Second comparison object.
      * @return {boolean} `true` if `actual` and `expected` are deemed equal,
-     *  otherwise `false`. Circular objects will return `false`;
+     *  otherwise `false`. Circular objects will return `false`.
      * @see https://nodejs.org/api/assert.html
      */
     isStrictDeepEqual: function isStrictDeepEqual(value1, value2) {

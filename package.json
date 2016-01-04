@@ -59,7 +59,7 @@
     "is-object-like-x": "^1.0.1",
     "is-array-buffer-x": "^1.0.3",
     "is-data-view-x": "^1.0.4",
-    "is-surrogate-pair-x": "^1.0.3",
+    "is-surrogate-pair-x": "^1.0.4",
     "is-arrow-function": "^2.0.3",
     "is-error-x": "^1.0.4",
     "is-set-x": "^1.0.1",

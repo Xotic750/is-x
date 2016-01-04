@@ -57,7 +57,7 @@
     "is-nil-x": "^1.0.1",
     "has-to-string-tag-x": "^1.0.1",
     "is-object-like-x": "^1.0.1",
-    "is-array-buffer-x": "^1.0.3",
+    "is-array-buffer-x": "^1.0.4",
     "is-data-view-x": "^1.0.4",
     "is-surrogate-pair-x": "^1.0.3",
     "is-arrow-function": "^2.0.3",

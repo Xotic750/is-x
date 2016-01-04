@@ -63,7 +63,7 @@
     "is-arrow-function": "^2.0.3",
     "is-error-x": "^1.0.4",
     "is-set-x": "^1.0.1",
-    "is-map-x": "^1.0.1"
+    "is-map-x": "^1.0.2"
   },
   "devDependencies": {
     "es5-shim": "^4.4.1",

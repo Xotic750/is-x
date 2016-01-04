@@ -61,7 +61,7 @@
     "is-data-view-x": "^1.0.4",
     "is-surrogate-pair-x": "^1.0.3",
     "is-arrow-function": "^2.0.3",
-    "is-error-x": "^1.0.4",
+    "is-error-x": "^1.0.5",
     "is-set-x": "^1.0.1",
     "is-map-x": "^1.0.1"
   },

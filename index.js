@@ -39,7 +39,7 @@
  * `es6.shim.js` provides compatibility shims so that legacy JavaScript engines
  * behave as closely as possible to ECMAScript 6 (Harmony).
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -69,6 +69,7 @@
     isNil = require('is-nil-x'),
     isNativeLD = require('lodash.isnative'),
     deepEqual = require('deep-equal-x'),
+    getFunctionName = require('get-function-name-x'),
     pIsPrototypeOf = Object.prototype.isPrototypeOf,
     reIsUint = /^(?:0|[1-9]\d*)$/;
 
@@ -680,6 +681,30 @@
      * @param {*} value The object to be tested.
      * @return {boolean} Returns `true` if `value` is a `Set`, else `false`.
      */
-    isSet: require('is-set-x')
+    isSet: require('is-set-x'),
+    /**
+     * Determine whether or not a given function is named `name`.
+     *
+     * @function
+     * @param {Function} fn The function to be tested.
+     * @param {string} name The object to be tested.
+     * @return {boolean} Returns `true` if function name is a `name`,
+     *  else `false`.
+     */
+    isFunctionName: function isFunctionName(fn, name) {
+      return ES.IsCallable(fn) &&
+        typeof name === 'string' &&
+        getFunctionName(fn) === name;
+    },
+    /**
+     * Determine whether or not a given function is anonymous.
+     *
+     * @function
+     * @param {Function} fn The function to be tested.
+     * @return {boolean} Returns `true` if function is anonymous, else `false`.
+     */
+    isAnonymous: function isAnonymous(fn) {
+      return ES.IsCallable(fn) && getFunctionName(fn) === '';
+    }
   });
 }());

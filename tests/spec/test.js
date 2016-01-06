@@ -4,7 +4,7 @@
   freeze:true, futurehostile:true, latedef:true, newcap:true, nocomma:true,
   nonbsp:true, singleGroups:true, strict:true, undef:true, unused:true,
   es3:true, esnext:true, plusplus:true, maxparams:2, maxdepth:2,
-  maxstatements:18, maxcomplexity:5 */
+  maxstatements:27, maxcomplexity:5 */
 
 /*global JSON:true, module, require, describe, it, expect, returnExports,
   alert */
@@ -85,7 +85,9 @@
         lib.isError,
         lib.isMap,
         lib.isSet,
-        lib.isNegativeZero
+        lib.isNegativeZero,
+        lib.isFunctionName,
+        lib.isAnonymous
       ];
 
       values.forEach(function (value, index) {
@@ -480,6 +482,92 @@
         expect(lib.isPropertyOf(new Ctr(), 'foo')).toBe(true);
         expect(lib.isPropertyOf(new Ctr(), 'bar')).toBe(true);
         expect(lib.isPropertyOf(new Ctr(), 'fuz')).toBe(true);
+      });
+    });
+
+    describe('isFunctionName', function () {
+      it('should return correct boolean in each case', function () {
+        expect(lib.isFunctionName(-1, '-1')).toBe(false);
+        expect(lib.isFunctionName(0, '0')).toBe(false);
+        expect(lib.isFunctionName(1, '1')).toBe(false);
+        expect(lib.isFunctionName(Infinity, 'Infinity')).toBe(false);
+        expect(lib.isFunctionName(-Infinity, '-Infinity')).toBe(false);
+        expect(lib.isFunctionName(NaN, NaN)).toBe(false);
+        expect(lib.isFunctionName(NaN, 'NaN')).toBe(false);
+        expect(lib.isFunctionName(-1, -1)).toBe(false);
+        expect(lib.isFunctionName(0, 0)).toBe(false);
+        expect(lib.isFunctionName(1, 1)).toBe(false);
+        expect(lib.isFunctionName(Infinity, Infinity)).toBe(false);
+        expect(lib.isFunctionName(-Infinity, -Infinity)).toBe(false);
+        expect(lib.isFunctionName(1, 2)).toBe(false);
+        expect(lib.isFunctionName(function () {}, '')).toBe(true);
+        /*jshint evil:true */
+        expect(lib.isFunctionName(new Function(), '')).toBe(true);
+        /*jshint evil:false */
+        expect(lib.isFunctionName(function test() {}, 'test')).toBe(true);
+
+        var fat;
+        try {
+          /*jshint evil:true */
+          fat = eval('(0,() => {return this})');
+          expect(lib.isFunctionName(fat, '')).toBe(true);
+        } catch (ignore) {}
+
+        var gen;
+        try {
+          /*jshint evil:true */
+          gen = eval('(0,function* idMaker(){})');
+          expect(lib.isFunctionName(gen, 'idMaker')).toBe(true);
+        } catch (ignore) {}
+
+        try {
+          /*jshint evil:true */
+          gen = eval('(0,function* (){})');
+          expect(lib.isFunctionName(gen, '')).toBe(true);
+        } catch (ignore) {}
+      });
+    });
+
+    describe('isAnonymous', function () {
+      it('should return correct boolean in each case', function () {
+        expect(lib.isAnonymous(-1)).toBe(false);
+        expect(lib.isAnonymous(0)).toBe(false);
+        expect(lib.isAnonymous(1)).toBe(false);
+        expect(lib.isAnonymous(Infinity)).toBe(false);
+        expect(lib.isAnonymous(-Infinity)).toBe(false);
+        expect(lib.isAnonymous(NaN)).toBe(false);
+        expect(lib.isAnonymous(NaN)).toBe(false);
+        expect(lib.isAnonymous(-1)).toBe(false);
+        expect(lib.isAnonymous(0)).toBe(false);
+        expect(lib.isAnonymous(1)).toBe(false);
+        expect(lib.isAnonymous(Infinity)).toBe(false);
+        expect(lib.isAnonymous(-Infinity)).toBe(false);
+        expect(lib.isAnonymous(1)).toBe(false);
+        expect(lib.isAnonymous(function () {})).toBe(true);
+        /*jshint evil:true */
+        expect(lib.isAnonymous(new Function())).toBe(true);
+        /*jshint evil:false */
+        expect(lib.isAnonymous(function test() {})).toBe(false);
+
+        var fat;
+        try {
+          /*jshint evil:true */
+          fat = eval('(0,() => {return this})');
+          expect(lib.isAnonymous(fat)).toBe(true);
+        } catch (ignore) {}
+
+        var gen;
+        try {
+          /*jshint evil:true */
+          gen = eval('(0,function* idMaker(){})');
+          expect(lib.isAnonymous(gen)).toBe(false);
+        } catch (ignore) {}
+
+        try {
+          /*jshint evil:true */
+          gen = eval('(0,function* (){})');
+          expect(lib.isAnonymous(gen)).toBe(true);
+        } catch (ignore) {}
       });
     });
   });

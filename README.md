@@ -40,7 +40,7 @@ es5-shim.js to be able to work properly.
 behave as closely as possible to ECMAScript 6 (Harmony).
 
 **See**: https://github.com/Xotic750/is-x  
-**Version**: 1.0.3  
+**Version**: 1.0.4  
 **Author:** Xotic750 <Xotic750@gmail.com>  
 **License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
 **Copyright**: Xotic750  
@@ -101,6 +101,8 @@ behave as closely as possible to ECMAScript 6 (Harmony).
     * [`~isError(value)`](#module_is-x..isError) ⇒ <code>boolean</code>
     * [`~isMap(value)`](#module_is-x..isMap) ⇒ <code>boolean</code>
     * [`~isSet(value)`](#module_is-x..isSet) ⇒ <code>boolean</code>
+    * [`~isFunctionName(fn, name)`](#module_is-x..isFunctionName) ⇒ <code>boolean</code>
+    * [`~isAnonymous(fn)`](#module_is-x..isAnonymous) ⇒ <code>boolean</code>
 
 <a name="module_is-x..isElement"></a>
 ### `is-x~isElement` ⇒ <code>boolean</code>
@@ -808,4 +810,28 @@ Determine whether or not a given `value` is a `Set`.
 | Param | Type | Description |
 | --- | --- | --- |
 | value | <code>\*</code> | The object to be tested. |
+
+<a name="module_is-x..isFunctionName"></a>
+### `is-x~isFunctionName(fn, name)` ⇒ <code>boolean</code>
+Determine whether or not a given function is named `name`.
+
+**Kind**: inner method of <code>[is-x](#module_is-x)</code>  
+**Returns**: <code>boolean</code> - Returns `true` if function name is a `name`,
+ else `false`.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | The function to be tested. |
+| name | <code>string</code> | The object to be tested. |
+
+<a name="module_is-x..isAnonymous"></a>
+### `is-x~isAnonymous(fn)` ⇒ <code>boolean</code>
+Determine whether or not a given function is anonymous.
+
+**Kind**: inner method of <code>[is-x](#module_is-x)</code>  
+**Returns**: <code>boolean</code> - Returns `true` if function is anonymous, else `false`.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | The function to be tested. |
 

@@ -1,6 +1,6 @@
 {
   "name": "is-x",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A collection of the best JavaScript type testing methods.",
   "homepage": "http://xotic750.github.io/is-x/",
   "author": {
@@ -63,7 +63,8 @@
     "is-arrow-function": "^2.0.3",
     "is-error-x": "^1.0.6",
     "is-set-x": "^1.0.3",
-    "is-map-x": "^1.0.3"
+    "is-map-x": "^1.0.3",
+    "get-function-name-x": "^1.0.3"
   },
   "devDependencies": {
     "es5-shim": "^4.4.1",

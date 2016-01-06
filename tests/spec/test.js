@@ -4,7 +4,7 @@
   freeze:true, futurehostile:true, latedef:true, newcap:true, nocomma:true,
   nonbsp:true, singleGroups:true, strict:true, undef:true, unused:true,
   es3:true, esnext:true, plusplus:true, maxparams:2, maxdepth:2,
-  maxstatements:14, maxcomplexity:5 */
+  maxstatements:18, maxcomplexity:5 */
 
 /*global JSON:true, module, require, describe, it, expect, returnExports,
   alert */
@@ -84,12 +84,13 @@
         lib.isArrowFunction,
         lib.isError,
         lib.isMap,
-        lib.isSet
+        lib.isSet,
+        lib.isNegativeZero
       ];
 
       values.forEach(function (value, index) {
-          expect(typeof value).toBe('function', index);
-        });
+        expect(typeof value).toBe('function', index);
+      });
     });
 
     describe('isEqual', function () {
@@ -268,7 +269,9 @@
         expect(lib.isSafeInteger(true)).toBe(false);
         expect(lib.isSafeInteger(new Date())).toBe(false);
         expect(lib.isSafeInteger(new Error())).toBe(false);
-        expect(lib.isSafeInteger({ 'a': 1 })).toBe(false);
+        expect(lib.isSafeInteger({
+          'a': 1
+        })).toBe(false);
         expect(lib.isSafeInteger(/x/)).toBe(false);
         expect(lib.isSafeInteger('a')).toBe(false);
       });
@@ -306,9 +309,7 @@
           NaN,
           true,
           null,
-          undefined,
-          [],
-          {},
+          undefined, [], {},
           function () {},
           function beep() {}
         ];
@@ -344,6 +345,141 @@
         values.forEach(function (value, index) {
           expect(lib.isNative(value)).toBe(true, index);
         });
+      });
+    });
+
+    describe('isProtoOf', function () {
+      it('should negatively validate', function () {
+        var values = [
+          'beep',
+          5,
+          NaN,
+          true,
+          null,
+          undefined, [], {},
+          function () {},
+          function beep() {}
+        ];
+
+        values.forEach(function (value, index) {
+          expect(lib.isProtoOf(value, Object)).toBe(false, index);
+        });
+      });
+
+      it('should positively validate', function () {
+        function Fee() {}
+
+        function Fi() {}
+        Fi.prototype = new Fee();
+
+        function Fo() {}
+        Fo.prototype = new Fi();
+
+        function Fum() {}
+        Fum.prototype = new Fo();
+
+        expect(lib.isProtoOf(Fi.prototype, new Fum())).toBe(true);
+      });
+    });
+
+    describe('isNegativeZero', function () {
+      it('should return correct boolean in each case', function () {
+        expect(lib.isNegativeZero(0)).toBe(false);
+        expect(lib.isNegativeZero(+0)).toBe(false);
+        expect(lib.isNegativeZero(-0)).toBe(true);
+        expect(lib.isNegativeZero(0.0)).toBe(false);
+        expect(lib.isNegativeZero(+0.0)).toBe(false);
+        expect(lib.isNegativeZero(-0.0)).toBe(true);
+        expect(lib.isNegativeZero(1)).toBe(false);
+        expect(lib.isNegativeZero(NaN)).toBe(false);
+        expect(lib.isNegativeZero(Infinity)).toBe(false);
+        expect(lib.isNegativeZero(-Infinity)).toBe(false);
+        expect(lib.isNegativeZero('0')).toBe(false);
+        expect(lib.isNegativeZero()).toBe(false);
+        expect(lib.isNegativeZero(undefined)).toBe(false);
+        expect(lib.isNegativeZero(null)).toBe(false);
+        expect(lib.isNegativeZero({})).toBe(false);
+        expect(lib.isNegativeZero([])).toBe(false);
+      });
+    });
+
+    describe('isOwnPropertyOf', function () {
+      var subject = {};
+
+      it('not defined on object should be not ok in each case', function () {
+        expect(lib.isOwnPropertyOf(subject, 'foo')).toBe(false);
+        expect(lib.isOwnPropertyOf(subject, 'bar')).toBe(false);
+        expect(lib.isOwnPropertyOf(subject, 'fuz')).toBe(false);
+      });
+
+      it('defined on object should be ok in each case', function () {
+        subject.foo = 'false';
+        subject.bar = 'false';
+        subject.fuz = 'false';
+        expect(lib.isOwnPropertyOf(subject, 'foo')).toBe(true);
+        expect(lib.isOwnPropertyOf(subject, 'bar')).toBe(true);
+        expect(lib.isOwnPropertyOf(subject, 'fuz')).toBe(true);
+      });
+
+      it('defined on object prototype should be not ok in each case', function () {
+        function Ctr() {}
+        Ctr.prototype = {
+          foo: 'false',
+          bar: 'false',
+          fuz: 'false'
+        };
+
+        expect(lib.isOwnPropertyOf(Ctr, 'foo')).toBe(false);
+        expect(lib.isOwnPropertyOf(Ctr, 'bar')).toBe(false);
+        expect(lib.isOwnPropertyOf(Ctr, 'fuz')).toBe(false);
+        expect(lib.isOwnPropertyOf(new Ctr(), 'foo')).toBe(false);
+        expect(lib.isOwnPropertyOf(new Ctr(), 'bar')).toBe(false);
+        expect(lib.isOwnPropertyOf(new Ctr(), 'fuz')).toBe(false);
+      });
+    });
+
+    describe('isPropertyOf', function () {
+      var subject = {};
+
+      it('not defined on object should be not ok in each case', function () {
+        expect(lib.isPropertyOf(subject, 'foo')).toBe(false);
+        expect(lib.isPropertyOf(subject, 'bar')).toBe(false);
+        expect(lib.isPropertyOf(subject, 'fuz')).toBe(false);
+      });
+
+      it('defined on object should be ok in each case', function () {
+        subject.foo = 'false';
+        subject.bar = 'false';
+        subject.fuz = 'false';
+        expect(lib.isPropertyOf(subject, 'foo')).toBe(true);
+        expect(lib.isPropertyOf(subject, 'bar')).toBe(true);
+        expect(lib.isPropertyOf(subject, 'fuz')).toBe(true);
+      });
+
+      it('defined on object prototype should be not ok in each case', function () {
+        function Ctr() {}
+        Ctr.prototype = {
+          foo: 'false',
+          bar: 'false',
+          fuz: 'false'
+        };
+
+        expect(lib.isPropertyOf(Ctr, 'foo')).toBe(false);
+        expect(lib.isPropertyOf(Ctr, 'bar')).toBe(false);
+        expect(lib.isPropertyOf(Ctr, 'fuz')).toBe(false);
+      });
+
+      it('defined on object prototype should be ok in each case', function () {
+        function Ctr() {}
+        Ctr.prototype = {
+          foo: 'false',
+          bar: 'false',
+          fuz: 'false'
+        };
+
+        expect(lib.isPropertyOf(new Ctr(), 'foo')).toBe(true);
+        expect(lib.isPropertyOf(new Ctr(), 'bar')).toBe(true);
+        expect(lib.isPropertyOf(new Ctr(), 'fuz')).toBe(true);
       });
     });
   });

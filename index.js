@@ -39,7 +39,7 @@
  * `es6.shim.js` provides compatibility shims so that legacy JavaScript engines
  * behave as closely as possible to ECMAScript 6 (Harmony).
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -361,7 +361,7 @@
       if (isNil(prototypeObj) || isNil(object)) {
         return false;
       }
-      ES.Call(pIsPrototypeOf, prototypeObj, [object]);
+      return ES.Call(pIsPrototypeOf, prototypeObj, [object]);
     },
     /**
      * An object is frozen if and only if it is not extensible, all its
@@ -406,7 +406,7 @@
      *
      * @function
      * @param {*} value1 The first value to compare.
-     * @param {*} value2 The second value to compare..
+     * @param {*} value2 The second value to compare.
      * @return {boolean} `true` if the two values are the same value, else
      *  `false`.
      */
@@ -433,11 +433,21 @@
      *
      * @function
      * @param {*} value1 The first value to compare.
-     * @param {*} value2 The second value to compare..
+     * @param {*} value2 The second value to compare.
      * @return {boolean} `true` if the two values are the same value, else
      *  `false`.
      */
     isSameValueZero: ES.SameValueZero,
+    /**
+     * Determines if an object is `-0`.
+     *
+     * @function
+     * @param {*} value The value to check.
+     * @return {boolean} Returns `true` if `value` is `-0`, else `false`.
+     */
+    isNegativeZero: function isNegativeZero(value) {
+      return ES.SameValue(value, -0);
+    },
     /**
      * Determines if an object is extensible (whether it can have new
      * properties added to it).

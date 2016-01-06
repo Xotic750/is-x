@@ -40,7 +40,7 @@ es5-shim.js to be able to work properly.
 behave as closely as possible to ECMAScript 6 (Harmony).
 
 **See**: https://github.com/Xotic750/is-x  
-**Version**: 1.0.2  
+**Version**: 1.0.3  
 **Author:** Xotic750 <Xotic750@gmail.com>  
 **License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
 **Copyright**: Xotic750  
@@ -82,6 +82,7 @@ behave as closely as possible to ECMAScript 6 (Harmony).
     * [`~isSealed(value)`](#module_is-x..isSealed) ⇒ <code>boolean</code>
     * [`~is(value1, value2)`](#module_is-x..is) ⇒ <code>boolean</code>
     * [`~isSameValueZero(value1, value2)`](#module_is-x..isSameValueZero) ⇒ <code>boolean</code>
+    * [`~isNegativeZero(value)`](#module_is-x..isNegativeZero) ⇒ <code>boolean</code>
     * [`~isExtensible(value)`](#module_is-x..isExtensible) ⇒ <code>boolean</code>
     * [`~isInteger(value)`](#module_is-x..isInteger) ⇒ <code>boolean</code>
     * [`~isSafeInteger(value)`](#module_is-x..isSafeInteger) ⇒ <code>boolean</code>
@@ -535,7 +536,7 @@ either value.
 | Param | Type | Description |
 | --- | --- | --- |
 | value1 | <code>\*</code> | The first value to compare. |
-| value2 | <code>\*</code> | The second value to compare.. |
+| value2 | <code>\*</code> | The second value to compare. |
 
 <a name="module_is-x..isSameValueZero"></a>
 ### `is-x~isSameValueZero(value1, value2)` ⇒ <code>boolean</code>
@@ -565,7 +566,18 @@ either value.
 | Param | Type | Description |
 | --- | --- | --- |
 | value1 | <code>\*</code> | The first value to compare. |
-| value2 | <code>\*</code> | The second value to compare.. |
+| value2 | <code>\*</code> | The second value to compare. |
+
+<a name="module_is-x..isNegativeZero"></a>
+### `is-x~isNegativeZero(value)` ⇒ <code>boolean</code>
+Determines if an object is `-0`.
+
+**Kind**: inner method of <code>[is-x](#module_is-x)</code>  
+**Returns**: <code>boolean</code> - Returns `true` if `value` is `-0`, else `false`.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>\*</code> | The value to check. |
 
 <a name="module_is-x..isExtensible"></a>
 ### `is-x~isExtensible(value)` ⇒ <code>boolean</code>

@@ -4,7 +4,7 @@
   freeze:true, futurehostile:true, latedef:true, newcap:true, nocomma:true,
   nonbsp:true, singleGroups:true, strict:true, undef:true, unused:true,
   es3:true, esnext:true, plusplus:true, maxparams:2, maxdepth:2,
-  maxstatements:12, maxcomplexity:5 */
+  maxstatements:14, maxcomplexity:5 */
 
 /*global JSON:true, module, require, describe, it, expect, returnExports,
   alert */
@@ -90,6 +90,129 @@
       values.forEach(function (value, index) {
           expect(typeof value).toBe('function', index);
         });
+    });
+
+    describe('isEqual', function () {
+      it('should return correct boolean in each case', function () {
+        expect(lib.isEqual(-1, '-1')).toBe(true);
+        expect(lib.isEqual(0, '0')).toBe(true);
+        expect(lib.isEqual(1, '1')).toBe(true);
+        expect(lib.isEqual(Infinity, 'Infinity')).toBe(true);
+        expect(lib.isEqual(-Infinity, '-Infinity')).toBe(true);
+        expect(lib.isEqual(NaN, NaN)).toBe(false);
+        expect(lib.isEqual(NaN, 'NaN')).toBe(false);
+        expect(lib.isEqual(-1, -1)).toBe(true);
+        expect(lib.isEqual(0, 0)).toBe(true);
+        expect(lib.isEqual(1, 1)).toBe(true);
+        expect(lib.isEqual(Infinity, Infinity)).toBe(true);
+        expect(lib.isEqual(-Infinity, -Infinity)).toBe(true);
+        expect(lib.isEqual(1, 2)).toBe(false);
+      });
+    });
+
+    describe('isStrictEqual', function () {
+      it('should return correct boolean in each case', function () {
+        expect(lib.isStrictEqual(-1, '-1')).toBe(false);
+        expect(lib.isStrictEqual(0, '0')).toBe(false);
+        expect(lib.isStrictEqual(1, '1')).toBe(false);
+        expect(lib.isStrictEqual(Infinity, 'Infinity')).toBe(false);
+        expect(lib.isStrictEqual(-Infinity, '-Infinity')).toBe(false);
+        expect(lib.isStrictEqual(NaN, NaN)).toBe(false);
+        expect(lib.isStrictEqual(NaN, 'NaN')).toBe(false);
+        expect(lib.isStrictEqual(-1, -1)).toBe(true);
+        expect(lib.isStrictEqual(0, 0)).toBe(true);
+        expect(lib.isStrictEqual(1, 1)).toBe(true);
+        expect(lib.isStrictEqual(Infinity, Infinity)).toBe(true);
+        expect(lib.isStrictEqual(-Infinity, -Infinity)).toBe(true);
+        expect(lib.isStrictEqual(1, 2)).toBe(false);
+      });
+    });
+
+    describe('isGt', function () {
+      it('should return correct boolean in each case', function () {
+        expect(lib.isGt(1, 0)).toBe(true);
+        expect(lib.isGt(1, 1)).toBe(false);
+        expect(lib.isGt(1, 2)).toBe(false);
+        expect(lib.isGt(0, 0)).toBe(false);
+        expect(lib.isGt(0, +0)).toBe(false);
+        expect(lib.isGt(0, -0)).toBe(false);
+      });
+    });
+
+    describe('isGte', function () {
+      it('should return correct boolean in each case', function () {
+        expect(lib.isGte(1, 0)).toBe(true);
+        expect(lib.isGte(1, 1)).toBe(true);
+        expect(lib.isGte(1, 2)).toBe(false);
+        expect(lib.isGte(0, 0)).toBe(true);
+        expect(lib.isGte(0, +0)).toBe(true);
+        expect(lib.isGte(0, -0)).toBe(true);
+      });
+    });
+
+    describe('isLt', function () {
+      it('should return correct boolean in each case', function () {
+        expect(lib.isLt(1, 2)).toBe(true);
+        expect(lib.isLt(1, 1)).toBe(false);
+        expect(lib.isLt(1, 0)).toBe(false);
+        expect(lib.isLt(0, 0)).toBe(false);
+        expect(lib.isLt(0, +0)).toBe(false);
+        expect(lib.isLt(0, -0)).toBe(false);
+      });
+    });
+
+    describe('isLte', function () {
+      it('should return correct boolean in each case', function () {
+        expect(lib.isLte(1, 1)).toBe(true);
+        expect(lib.isLte(1, 0)).toBe(false);
+        expect(lib.isLte(1, 2)).toBe(true);
+        expect(lib.isLte(0, 0)).toBe(true);
+        expect(lib.isLte(0, +0)).toBe(true);
+        expect(lib.isLte(0, -0)).toBe(true);
+      });
+    });
+
+    describe('isObject', function () {
+      it('should return false when primitive value', function () {
+        expect(lib.isObject(null)).toBe(false);
+        expect(lib.isObject(undefined)).toBe(false);
+        expect(lib.isObject(1)).toBe(false);
+        expect(lib.isObject('foo')).toBe(false);
+        expect(lib.isObject(true)).toBe(false);
+        expect(lib.isObject(false)).toBe(false);
+        expect(lib.isObject(NaN)).toBe(false);
+        expect(lib.isObject(Infinity)).toBe(false);
+        if (typeof Symbol === 'function') {
+          expect(lib.isObject(Symbol())).toBe(false);
+        }
+      });
+
+      it('should return true when an object value', function () {
+        function Ctr() {}
+        expect(lib.isObject({})).toBe(true);
+        expect(lib.isObject([])).toBe(true);
+        expect(lib.isObject(/./)).toBe(true);
+        expect(lib.isObject(Ctr)).toBe(true);
+        expect(lib.isObject(new Ctr())).toBe(true);
+        expect(lib.isObject(Object(1))).toBe(true);
+        expect(lib.isObject(Object(''))).toBe(true);
+        expect(lib.isObject(Object(false))).toBe(true);
+        expect(lib.isObject(new Date())).toBe(true);
+        expect(lib.isObject(new Error())).toBe(true);
+      });
+    });
+
+    describe('isStringTag', function () {
+      it('should be true in each case', function () {
+        expect(lib.isStringTag(undefined, '[object Undefined]')).toBe(true);
+        expect(lib.isStringTag(null, '[object Null]')).toBe(true);
+        expect(lib.isStringTag(1, '[object Number]')).toBe(true);
+        expect(lib.isStringTag(true, '[object Boolean]')).toBe(true);
+        expect(lib.isStringTag('x', '[object String]')).toBe(true);
+        expect(lib.isStringTag([1, 2, 3], '[object Array]')).toBe(true);
+        expect(lib.isStringTag({}, '[object Object]')).toBe(true);
+        expect(lib.isStringTag(function () {}, '[object Function]')).toBe(true);
+      });
     });
 
     describe('isTypeOf', function () {
@@ -202,7 +325,6 @@
           Array,
           Boolean,
           String,
-          Number,
           Math.pow,
           Function,
           eval

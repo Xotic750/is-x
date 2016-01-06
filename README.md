@@ -40,7 +40,7 @@ es5-shim.js to be able to work properly.
 behave as closely as possible to ECMAScript 6 (Harmony).
 
 **See**: https://github.com/Xotic750/is-x  
-**Version**: 1.0.1  
+**Version**: 1.0.2  
 **Author:** Xotic750 <Xotic750@gmail.com>  
 **License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
 **Copyright**: Xotic750  

@@ -39,7 +39,7 @@
  * `es6.shim.js` provides compatibility shims so that legacy JavaScript engines
  * behave as closely as possible to ECMAScript 6 (Harmony).
  *
- * @version 1.0.1
+ * @version 1.0.2
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -129,7 +129,6 @@
      * @return {boolean} Returns `true` if `value1` > `value2`, else `false`.
      */
     isGt: function isGt(value1, value2) {
-      /*jshint eqeqeq:false */
       return value1 > value2;
     },
     /**
@@ -141,8 +140,7 @@
      * @return {boolean} Returns `true` if `value1` >= `value2`, else `false`.
      */
     isGte: function isGt(value1, value2) {
-      /*jshint eqeqeq:false */
-      return value1 > value2;
+      return value1 >= value2;
     },
     /**
      * Checks if `value1` is less than `value2`.
@@ -153,7 +151,6 @@
      * @return {boolean} Returns `true` if `value1` < `value2`, else `false`.
      */
     isLt: function isLt(value1, value2) {
-      /*jshint eqeqeq:false */
       return value1 < value2;
     },
     /**
@@ -165,8 +162,7 @@
      * @return {boolean} Returns `true` if `value1` <= `value2`, else `false`.
      */
     isLte: function isLt(value1, value2) {
-      /*jshint eqeqeq:false */
-      return value1 > value2;
+      return value1 <= value2;
     },
     /**
      * Checks if `value` is likely an `arguments` object.

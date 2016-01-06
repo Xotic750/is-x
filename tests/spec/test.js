@@ -4,7 +4,7 @@
   freeze:true, futurehostile:true, latedef:true, newcap:true, nocomma:true,
   nonbsp:true, singleGroups:true, strict:true, undef:true, unused:true,
   es3:true, esnext:true, plusplus:true, maxparams:2, maxdepth:2,
-  maxstatements:27, maxcomplexity:5 */
+  maxstatements:38, maxcomplexity:7 */
 
 /*global JSON:true, module, require, describe, it, expect, returnExports,
   alert */
@@ -567,6 +567,140 @@
           /*jshint evil:true */
           gen = eval('(0,function* (){})');
           expect(lib.isAnonymous(gen)).toBe(true);
+        } catch (ignore) {}
+      });
+    });
+
+    describe('isArity', function () {
+      it('should return correct boolean in each case', function () {
+        expect(lib.isArity(-1)).toBe(false);
+        expect(lib.isArity(0)).toBe(false);
+        expect(lib.isArity(1, 1)).toBe(false);
+        expect(lib.isArity(Infinity)).toBe(false);
+        expect(lib.isArity(-Infinity, -1)).toBe(false);
+        expect(lib.isArity(NaN)).toBe(false);
+        expect(lib.isArity(NaN, '')).toBe(false);
+        expect(lib.isArity(-1)).toBe(false);
+        expect(lib.isArity(0)).toBe(false);
+        expect(lib.isArity(1)).toBe(false);
+        expect(lib.isArity(Infinity, '')).toBe(false);
+        expect(lib.isArity(-Infinity)).toBe(false);
+        expect(lib.isArity(1)).toBe(false);
+        expect(lib.isArity(function () {}, 0)).toBe(true);
+        /*jshint evil:true */
+        expect(lib.isArity(new Function(), 0)).toBe(true);
+        /*jshint evil:false */
+        expect(lib.isArity(function test() {}, 0)).toBe(true);
+        expect(lib.isArity(function (a) {
+          return a;
+        }, 1)).toBe(true);
+        expect(lib.isArity(function test(a) {
+          return a;
+        }, 1)).toBe(true);
+
+        var fat;
+        try {
+          /*jshint evil:true */
+          fat = eval('(0,() => {return this})');
+          expect(lib.isArity(fat, 0)).toBe(true);
+        } catch (ignore) {}
+
+        try {
+          /*jshint evil:true */
+          fat = eval('(0,(a) => {return this})');
+          expect(lib.isArity(fat, 1)).toBe(true);
+        } catch (ignore) {}
+
+        var gen;
+        try {
+          /*jshint evil:true */
+          gen = eval('(0,function* idMaker(){})');
+          expect(lib.isArity(gen, 0)).toBe(true);
+        } catch (ignore) {}
+
+        try {
+          /*jshint evil:true */
+          gen = eval('(0,function* idMaker(a){})');
+          expect(lib.isArity(gen, 1)).toBe(true);
+        } catch (ignore) {}
+
+        try {
+          /*jshint evil:true */
+          gen = eval('(0,function* (){})');
+          expect(lib.isArity(gen, 0)).toBe(true);
+        } catch (ignore) {}
+
+        try {
+          /*jshint evil:true */
+          gen = eval('(0,function* (a){})');
+          expect(lib.isArity(gen, 1)).toBe(true);
+        } catch (ignore) {}
+      });
+    });
+
+    describe('isGenerator', function () {
+      it('should return correct boolean in each case', function () {
+        expect(lib.isGenerator(-1)).toBe(false);
+        expect(lib.isGenerator(0)).toBe(false);
+        expect(lib.isGenerator(1)).toBe(false);
+        expect(lib.isGenerator(Infinity)).toBe(false);
+        expect(lib.isGenerator(-Infinity)).toBe(false);
+        expect(lib.isGenerator(NaN)).toBe(false);
+        expect(lib.isGenerator(NaN)).toBe(false);
+        expect(lib.isGenerator(-1)).toBe(false);
+        expect(lib.isGenerator(0)).toBe(false);
+        expect(lib.isGenerator(1)).toBe(false);
+        expect(lib.isGenerator(Infinity)).toBe(false);
+        expect(lib.isGenerator(-Infinity)).toBe(false);
+        expect(lib.isGenerator(1)).toBe(false);
+        expect(lib.isGenerator(function () {})).toBe(false);
+        /*jshint evil:true */
+        expect(lib.isGenerator(new Function())).toBe(false);
+        /*jshint evil:false */
+        expect(lib.isGenerator(function test() {})).toBe(false);
+        expect(lib.isGenerator(function (a) {
+          return a;
+        })).toBe(false);
+        expect(lib.isGenerator(function test(a) {
+          return a;
+        })).toBe(false);
+
+        var fat;
+        try {
+          /*jshint evil:true */
+          fat = eval('(0,() => {return this})');
+          expect(lib.isGenerator(fat)).toBe(false);
+        } catch (ignore) {}
+
+        try {
+          /*jshint evil:true */
+          fat = eval('(0,(a) => {return this})');
+          expect(lib.isGenerator(fat)).toBe(false);
+        } catch (ignore) {}
+
+        var gen;
+        try {
+          /*jshint evil:true */
+          gen = eval('(0,function* idMaker(){})');
+          expect(lib.isGenerator(gen)).toBe(true);
+        } catch (ignore) {}
+
+        try {
+          /*jshint evil:true */
+          gen = eval('(0,function* idMaker(a){})');
+          expect(lib.isGenerator(gen)).toBe(true);
+        } catch (ignore) {}
+
+        try {
+          /*jshint evil:true */
+          gen = eval('(0,function* (){})');
+          expect(lib.isGenerator(gen)).toBe(true);
+        } catch (ignore) {}
+
+        try {
+          /*jshint evil:true */
+          gen = eval('(0,function* (a){})');
+          expect(lib.isGenerator(gen)).toBe(true);
         } catch (ignore) {}
       });
     });

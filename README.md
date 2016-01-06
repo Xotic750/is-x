@@ -40,7 +40,7 @@ es5-shim.js to be able to work properly.
 behave as closely as possible to ECMAScript 6 (Harmony).
 
 **See**: https://github.com/Xotic750/is-x  
-**Version**: 1.0.4  
+**Version**: 1.0.5  
 **Author:** Xotic750 <Xotic750@gmail.com>  
 **License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
 **Copyright**: Xotic750  
@@ -103,6 +103,8 @@ behave as closely as possible to ECMAScript 6 (Harmony).
     * [`~isSet(value)`](#module_is-x..isSet) ⇒ <code>boolean</code>
     * [`~isFunctionName(fn, name)`](#module_is-x..isFunctionName) ⇒ <code>boolean</code>
     * [`~isAnonymous(fn)`](#module_is-x..isAnonymous) ⇒ <code>boolean</code>
+    * [`~isArity(fn, arity)`](#module_is-x..isArity) ⇒ <code>boolean</code>
+    * [`~isGenerator(fn)`](#module_is-x..isGenerator) ⇒ <code>boolean</code>
 
 <a name="module_is-x..isElement"></a>
 ### `is-x~isElement` ⇒ <code>boolean</code>
@@ -830,6 +832,31 @@ Determine whether or not a given function is anonymous.
 
 **Kind**: inner method of <code>[is-x](#module_is-x)</code>  
 **Returns**: <code>boolean</code> - Returns `true` if function is anonymous, else `false`.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | The function to be tested. |
+
+<a name="module_is-x..isArity"></a>
+### `is-x~isArity(fn, arity)` ⇒ <code>boolean</code>
+Determine whether or not a given function's arity matches `arity`.
+
+**Kind**: inner method of <code>[is-x](#module_is-x)</code>  
+**Returns**: <code>boolean</code> - Returns `true` if the function's arity matched `arity`,
+ else `false`.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | The function to be tested. |
+| arity | <code>number</code> | The `arity` integer to be tested. |
+
+<a name="module_is-x..isGenerator"></a>
+### `is-x~isGenerator(fn)` ⇒ <code>boolean</code>
+Determine whether or not a given function is an ES6 generator function.
+
+**Kind**: inner method of <code>[is-x](#module_is-x)</code>  
+**Returns**: <code>boolean</code> - Returns `true` if the function an ES6 generator
+function, else `false`.  
 
 | Param | Type | Description |
 | --- | --- | --- |

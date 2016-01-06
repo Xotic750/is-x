@@ -39,7 +39,7 @@
  * `es6.shim.js` provides compatibility shims so that legacy JavaScript engines
  * behave as closely as possible to ECMAScript 6 (Harmony).
  *
- * @version 1.0.4
+ * @version 1.0.5
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -71,7 +71,18 @@
     deepEqual = require('deep-equal-x'),
     getFunctionName = require('get-function-name-x'),
     pIsPrototypeOf = Object.prototype.isPrototypeOf,
-    reIsUint = /^(?:0|[1-9]\d*)$/;
+    fToString = Function.prototype.toString,
+    sReplace = String.prototype.replace,
+    sMatch = String.prototype.match,
+    reIsUint = /^(?:0|[1-9]\d*)$/,
+    FN_STAR = [/^\s*function\s*(\*?)\s+/i],
+    STRIP_COMMENTS = [/((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg, ''];
+
+  function isSafeInteger(value) {
+    return ES.IsInteger(value) &&
+      value >= -MAX_SAFE_INTEGER &&
+      value <= MAX_SAFE_INTEGER;
+  }
 
   defProps(module.exports, {
     /**
@@ -476,11 +487,7 @@
      * @return {boolean} Returns `true` if `value` is a safe integer,
      *  else `false`.
      */
-    isSafeInteger: function isSafeInteger(value) {
-      return ES.IsInteger(value) &&
-        value >= -MAX_SAFE_INTEGER &&
-        value <= MAX_SAFE_INTEGER;
-    },
+    isSafeInteger: isSafeInteger,
     /**
      * The abstract operation IsPropertyKey determines if argument, which must
      * be an ECMAScript language value or a Completion Record, is a value that
@@ -705,6 +712,38 @@
      */
     isAnonymous: function isAnonymous(fn) {
       return ES.IsCallable(fn) && getFunctionName(fn) === '';
+    },
+    /**
+     * Determine whether or not a given function's arity matches `arity`.
+     *
+     * @function
+     * @param {Function} fn The function to be tested.
+     * @param {number} arity The `arity` integer to be tested.
+     * @return {boolean} Returns `true` if the function's arity matched `arity`,
+     *  else `false`.
+     */
+    isArity: function isArity(fn, arity) {
+      return ES.IsCallable(fn) && isSafeInteger(arity) && fn.length === arity;
+    },
+    /**
+     * Determine whether or not a given function is an ES6 generator function.
+     *
+     * @function
+     * @param {Function} fn The function to be tested.
+     * @return {boolean} Returns `true` if the function an ES6 generator
+     * function, else `false`.
+     */
+    isGenerator: function isGenerator(fn) {
+      var match;
+      if (!ES.IsCallable(fn)) {
+        return false;
+      }
+      match = ES.Call(
+        sMatch,
+        ES.Call(sReplace, ES.Call(fToString, fn), STRIP_COMMENTS),
+        FN_STAR
+      );
+      return !!match && match[1] === '*';
     }
   });
 }());

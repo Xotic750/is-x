@@ -39,7 +39,7 @@
  * `es6.shim.js` provides compatibility shims so that legacy JavaScript engines
  * behave as closely as possible to ECMAScript 6 (Harmony).
  *
- * @version 1.0.5
+ * @version 1.0.6
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -70,12 +70,18 @@
     isNativeLD = require('lodash.isnative'),
     deepEqual = require('deep-equal-x'),
     getFunctionName = require('get-function-name-x'),
+    s = require('white-space-x')(false, true),
     pIsPrototypeOf = Object.prototype.isPrototypeOf,
     fToString = Function.prototype.toString,
     sReplace = String.prototype.replace,
     sMatch = String.prototype.match,
     reIsUint = /^(?:0|[1-9]\d*)$/,
-    FN_STAR = [/^\s*function\s*(\*?)\s+/i],
+    FN_STAR = [
+      new RegExp(
+        '^[' + s + ']*function[' + s + ']*(\\*?)[' + s + ']+',
+        'i'
+      )
+    ],
     STRIP_COMMENTS = [/((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg, ''];
 
   function isSafeInteger(value) {

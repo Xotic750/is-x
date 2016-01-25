@@ -39,7 +39,7 @@
  * `es6.shim.js` provides compatibility shims so that legacy JavaScript engines
  * behave as closely as possible to ECMAScript 6 (Harmony).
  *
- * @version 1.0.6
+ * @version 1.0.7
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -62,7 +62,7 @@
 
   var MAX_SAFE_INTEGER = Math.pow(2, 53) - 1,
     ES = require('es-abstract'),
-    defProps = require('define-properties'),
+    defProps = require('define-properties-x').defineProperties,
     hasOwnProperty = require('has-own-property-x'),
     toStringTag = require('to-string-tag-x'),
     isPrimitive = require('is-primitive'),
@@ -82,7 +82,7 @@
         'i'
       )
     ],
-    STRIP_COMMENTS = [/((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg, ''];
+    STRIP_COMMENTS = [/((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg, ' '];
 
   function isSafeInteger(value) {
     return ES.IsInteger(value) &&
@@ -304,7 +304,7 @@
      * @param {*} value The value to check.
      * @return {boolean} Returns `true` if `value` is callable, else `false`.
      */
-    isFunction: ES.IsCallable,
+    isFunction: require('is-function-x'),
     /**
      * Checks if `value` is classified as a `RegExp` object.
      *
@@ -513,7 +513,7 @@
      * @return {boolean} Returns `true` if `value` is a valid length,
      *  else `false`.
      */
-    isLength: require('is-length-x'),
+    isLength: require('lodash.islength'),
     /**
      * Checks if `value` is a valid array-like index.
      *

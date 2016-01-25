@@ -39,7 +39,7 @@
  * `es6.shim.js` provides compatibility shims so that legacy JavaScript engines
  * behave as closely as possible to ECMAScript 6 (Harmony).
  *
- * @version 1.0.8
+ * @version 1.0.9
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -61,8 +61,8 @@
   'use strict';
 
   var MAX_SAFE_INTEGER = Math.pow(2, 53) - 1,
-    ES = require('es-abstract'),
-    defProps = require('define-properties-x').defineProperties,
+    ES = require('es-abstract/es6'),
+    define = require('define-properties-x'),
     hasOwnProperty = require('has-own-property-x'),
     toStringTag = require('to-string-tag-x'),
     isPrimitive = require('is-primitive'),
@@ -90,7 +90,7 @@
       value <= MAX_SAFE_INTEGER;
   }
 
-  defProps(module.exports, {
+  define.properties(module.exports, {
     /**
      * Checks if `value` is `null` or `undefined`.
      *
